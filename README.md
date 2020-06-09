@@ -1,5 +1,15 @@
 # ami-notes
 
+## Code References
+
+### interpolation-identity
+
+[ami/shaders.interpolation.identity.js at master · FNNDSC/ami](https://github.com/FNNDSC/ami/blob/master/src/shaders/interpolation/shaders.interpolation.identity.js)
+
+### interpolation-trilinear
+
+[ami/shaders.interpolation.trilinear.js at master · FNNDSC/ami](https://github.com/FNNDSC/ami/blob/master/src/shaders/interpolation/shaders.interpolation.trilinear.js)
+
 ## GLSL knowledge
 
 ### Variable

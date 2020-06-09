@@ -1,36 +1,37 @@
-void trilinearInterpolation(
-  in vec3 normalizedPosition,
-  out vec4 interpolatedValue,
-  in vec4 v000, in vec4 v100,
-  in vec4 v001, in vec4 v101,
-  in vec4 v010, in vec4 v110,
-  in vec4 v011, in vec4 v111) {
+void trilinearInterpolation( // comment show the reference variable or formula from wikipedia
+  in vec3 normalizedPosition, // vec3(xd, yd, zd)
+  out vec4 interpolatedValue, // c
+  in vec4 v000, in vec4 v100, // c000, c100
+  in vec4 v001, in vec4 v101, // c001, c101
+  in vec4 v010, in vec4 v110, // c010, c110
+  in vec4 v011, in vec4 v111  // c011, c111
+) {
   // https://en.wikipedia.org/wiki/Trilinear_interpolation
-  vec4 c00 = v000 * ( 1.0 - normalizedPosition.x ) + v100 * normalizedPosition.x;
-  vec4 c01 = v001 * ( 1.0 - normalizedPosition.x ) + v101 * normalizedPosition.x;
-  vec4 c10 = v010 * ( 1.0 - normalizedPosition.x ) + v110 * normalizedPosition.x;
-  vec4 c11 = v011 * ( 1.0 - normalizedPosition.x ) + v111 * normalizedPosition.x;
+  vec4 c00 = v000 * ( 1.0 - normalizedPosition.x ) + v100 * normalizedPosition.x; // c00=c000*(1-xd)+c100*(xd)
+  vec4 c01 = v001 * ( 1.0 - normalizedPosition.x ) + v101 * normalizedPosition.x; // c01=c001*(1-xd)+c101*(xd)
+  vec4 c10 = v010 * ( 1.0 - normalizedPosition.x ) + v110 * normalizedPosition.x; // c10=c010*(1-xd)+c110*(xd)
+  vec4 c11 = v011 * ( 1.0 - normalizedPosition.x ) + v111 * normalizedPosition.x; // c11=c011*(1-xd)+c111*(xd)
 
   // c0 and c1
-  vec4 c0 = c00 * ( 1.0 - normalizedPosition.y) + c10 * normalizedPosition.y;
-  vec4 c1 = c01 * ( 1.0 - normalizedPosition.y) + c11 * normalizedPosition.y;
+  vec4 c0 = c00 * ( 1.0 - normalizedPosition.y) + c10 * normalizedPosition.y; // c0=c00*(1-yd)+c10*(yd)
+  vec4 c1 = c01 * ( 1.0 - normalizedPosition.y) + c11 * normalizedPosition.y; // c1=c01*(1-yd)+c11*(yd)
 
   // c
-  vec4 c = c0 * ( 1.0 - normalizedPosition.z) + c1 * normalizedPosition.z;
+  vec4 c = c0 * ( 1.0 - normalizedPosition.z) + c1 * normalizedPosition.z; // c = c0*(1-zd)+c1*zd
   interpolatedValue = c;
 }
 
 void interpolationTrilinear(in vec3 currentVoxel, out vec4 dataValue, out vec3 gradient){
 
   vec3 lower_bound = floor(currentVoxel);
-  lower_bound = max(vec3(0.), lower_bound);
+  lower_bound = max(vec3(0.), lower_bound); // prevent negative value, get position for c000 point
 
-  vec3 higher_bound = lower_bound + vec3(1.);
+  vec3 higher_bound = lower_bound + vec3(1.); // get position for c111 point
 
-  vec3 normalizedPosition = (currentVoxel - lower_bound);
-  normalizedPosition =  max(vec3(0.), normalizedPosition);
+  vec3 normalizedPosition = (currentVoxel - lower_bound); // get (xd, yd, zd)
+  normalizedPosition =  max(vec3(0.), normalizedPosition); // prevent negative value
 
-  vec4 interpolatedValue = vec4(0.);
+  vec4 interpolatedValue = vec4(0.); // declare for result
 
   //
   // fetch values required for interpolation
