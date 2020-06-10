@@ -20,6 +20,11 @@ Formula: [Trilinear interpolation - Wikipedia](https://en.wikipedia.org/wiki/Tri
 Code: [procedural-planet/material.js at master · prolearner/procedural-planet](https://github.com/prolearner/procedural-planet/blob/master/shader/material.js)
 Formula: [Digital Filtering And Compression In Image Processing And Volume Rendering](https://people.redhat.com/jnovy/files/dissertation-jnovy.pdf)
 
+### Tricubic interpolation
+
+Code: [sharevol/index.html at master · OKaluza/sharevol](https://github.com/OKaluza/sharevol/blob/master/index.html#L317)
+Formula: [Efficient GPU-Based Texture Interpolation using Uniform B-Splines](http://mate.tue.nl/mate/pdfs/10318.pdf)
+
 ## GLSL knowledge
 
 ### Variable
@@ -78,6 +83,7 @@ Can use `.x`, `.y`, `.z`, `.w` to access each component
   (if input is vector, will do this component-wise)
 - `mod(a, b)`: equivalent to a%b in Java
 - `fract(a)`: compute the fractional part of the argument
+- `mix(a, b, c)`: returns the linear blend of a and b. i.e. `a * (1 - c) + b * c`
 
 #### Geometric
 
